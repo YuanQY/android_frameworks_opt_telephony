@@ -514,7 +514,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
             try {for (;;) {
                 LocalSocket s = null;
                 LocalSocketAddress l;
-
+								Rlog.d (RILJ_LOG_TAG, "RILReceiver thread mInstanceId: " + mInstanceId);
                 if (mInstanceId == null || mInstanceId == 0 ) {
                     rilSocket = SOCKET_NAME_RIL[0];
                 } else {
