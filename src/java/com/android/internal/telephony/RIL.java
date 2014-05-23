@@ -231,7 +231,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
     static final String RILJ_LOG_TAG = "RILJ";
     static final String LOG_TAG = RILJ_LOG_TAG;
     static final boolean RILJ_LOGD = true;
-    static final boolean RILJ_LOGV = false; // STOPSHIP if true
+    static final boolean RILJ_LOGV = true; // STOPSHIP if true
     protected boolean samsungDriverCall = false;
 
     /**
@@ -300,7 +300,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
     static final int RESPONSE_SOLICITED = 0;
     static final int RESPONSE_UNSOLICITED = 1;
 
-    static final String[] SOCKET_NAME_RIL = {"rild", "rild1", "rild2"};
+    static final String[] SOCKET_NAME_RIL = {"rild", "rild1", "rild2", "rild-md2", "rild2-md2"};
 
     static final int SOCKET_OPEN_RETRY_MILLIS = 4 * 1000;
 
@@ -653,7 +653,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
         mSetPreferredNetworkType = preferredNetworkType;
         mPhoneType = RILConstants.NO_PHONE;
         mInstanceId = instanceId;
-
+        // Engle, add for change mInstanceId
+        initializeInstanceId();
         PowerManager pm = (PowerManager)context.getSystemService(Context.POWER_SERVICE);
         mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, RILJ_LOG_TAG);
         mWakeLock.setReferenceCounted(false);
@@ -682,6 +683,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
             filter.addAction(Intent.ACTION_SCREEN_OFF);
             context.registerReceiver(mIntentReceiver, filter);
         }
+    }
+
+    // Engle, add for change mInstanceId
+    protected void initializeInstanceId() {
     }
 
     //***** CommandsInterface implementation
