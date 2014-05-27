@@ -3311,7 +3311,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
         }
     }
 
-    private boolean isQcUnsolOemHookResp(ByteBuffer oemHookResponse) {
+    // Engle, for MTK
+    protected boolean isQcUnsolOemHookResp(ByteBuffer oemHookResponse) {
 
         /* Check OEM ID in UnsolOemHook response */
         if (oemHookResponse.capacity() < mHeaderSize) {
@@ -3335,7 +3336,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
         return true;
     }
 
-    private void processUnsolOemhookResponse(ByteBuffer oemHookResponse) {
+    // Engle, for MTK
+    protected void processUnsolOemhookResponse(ByteBuffer oemHookResponse) {
         int responseId = 0, responseSize = 0, responseVoiceId = 0;
 
         responseId = oemHookResponse.getInt();
@@ -4322,7 +4324,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
         riljLogv("[UNSL]< " + responseToString(response) + " " + retToString(response, ret));
     }
 
-    private Object
+    // Engle, change for MTK
+    protected Object
     responseSsData(Parcel p) {
         int num;
         SsData ssData = new SsData();
