@@ -2388,16 +2388,16 @@ public class RIL extends BaseCommands implements CommandsInterface {
         switch(stateInt) {
             case 0: state = RadioState.RADIO_OFF; break;
             case 1: state = RadioState.RADIO_UNAVAILABLE; break;
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            case 7:
-            case 8:
-            case 9:
-            case 10:
-            case 13: state = RadioState.RADIO_ON; break;
+            case 2: state = RadioState.SIM_NOT_READY; break; // Engle, change for MTK
+            case 3: state = RadioState.SIM_LOCKED_OR_ABSENT; break; // Engle, change for MTK
+            case 4: state = RadioState.SIM_READY; break; // Engle, change for MTK
+            case 5: state = RadioState.RUIM_NOT_READY; break; // Engle, change for MTK
+            case 6: state = RadioState.RUIM_READY; break; // Engle, change for MTK
+            case 7: state = RadioState.RUIM_LOCKED_OR_ABSENT; break; // Engle, change for MTK
+            case 8: state = RadioState.NV_NOT_READY; break; // Engle, change for MTK
+            case 9: state = RadioState.NV_READY; break; // Engle, change for MTK
+            case 10: state = RadioState.RADIO_ON; break; // Engle, change for MTK
+            // case 13: state = RadioState.RADIO_ON; break; // Engle, change for MTK
 
             default:
                 throw new RuntimeException(

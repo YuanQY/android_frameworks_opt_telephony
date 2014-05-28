@@ -28,12 +28,15 @@ import android.os.Message;
 import android.os.Handler;
 import android.os.AsyncResult;
 import android.telephony.TelephonyManager;
-
+// Engle, for MTK
+import android.util.Log;
 /**
  * {@hide}
  */
 public abstract class BaseCommands implements CommandsInterface {
     //***** Instance Variables
+ // Engle, for MTK
+    static final String LOG_TAG = "RILB";
     protected Context mContext;
     protected RadioState mState = RadioState.RADIO_UNAVAILABLE;
     protected Object mStateMonitor = new Object();
@@ -774,22 +777,48 @@ public abstract class BaseCommands implements CommandsInterface {
 
             if (mState.isAvailable() && !oldState.isAvailable()) {
                 mAvailRegistrants.notifyRegistrants();
+                Log.d(LOG_TAG, "Notifying: radio available");
                 onRadioAvailable();
             }
 
             if (!mState.isAvailable() && oldState.isAvailable()) {
+                Log.d(LOG_TAG, "Notifying: radio not available");
                 mNotAvailRegistrants.notifyRegistrants();
             }
 
             if (mState.isOn() && !oldState.isOn()) {
+                Log.d(LOG_TAG, "Notifying: Radio On");
                 mOnRegistrants.notifyRegistrants();
             }
 
             if ((!mState.isOn() || !mState.isAvailable())
                 && !((!oldState.isOn() || !oldState.isAvailable()))
             ) {
+                Log.d(LOG_TAG, "Notifying: radio off or not available");
                 mOffOrNotAvailRegistrants.notifyRegistrants();
             }
+
+            // Engle, For MTK, start
+            if ((this.mState.isGsm()) && (oldState.isCdma())) {
+                Log.d(LOG_TAG, "Notifying: radio technology change CDMA to GSM");
+                this.mVoiceRadioTechChangedRegistrants.notifyRegistrants();
+            }
+
+            if ((this.mState.isGsm()) && (!oldState.isOn()) && (this.mPhoneType == 2)) {
+                Log.d(LOG_TAG, "Notifying: radio technology change CDMA OFF to GSM");
+                this.mVoiceRadioTechChangedRegistrants.notifyRegistrants();
+            }
+
+            if ((this.mState.isCdma()) && (oldState.isGsm())) {
+                Log.d(LOG_TAG, "Notifying: radio technology change GSM to CDMA");
+                this.mVoiceRadioTechChangedRegistrants.notifyRegistrants();
+            }
+
+            if ((this.mState.isCdma()) && (!oldState.isOn()) && (this.mPhoneType == 1)) {
+                Log.d(LOG_TAG, "Notifying: radio technology change GSM OFF to CDMA");
+                this.mVoiceRadioTechChangedRegistrants.notifyRegistrants();
+            }
+            // Engle, For MTK, end
         }
     }
 

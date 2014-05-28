@@ -33,16 +33,63 @@ public interface CommandsInterface {
     enum RadioState {
         RADIO_OFF,         /* Radio explicitly powered off (eg CFUN=0) */
         RADIO_UNAVAILABLE, /* Radio unavailable (eg, resetting or not booted) */
+        // Engle, for MTK, start
+        SIM_NOT_READY, 
+        SIM_LOCKED_OR_ABSENT,
+        SIM_READY,
+        RUIM_NOT_READY,
+        RUIM_READY,
+        RUIM_LOCKED_OR_ABSENT,
+        NV_NOT_READY,
+        NV_READY,
         RADIO_ON;          /* Radio is on */
 
         public boolean isOn() /* and available...*/ {
-            return this == RADIO_ON;
+            return (this == SIM_NOT_READY) || (this == SIM_LOCKED_OR_ABSENT) || 
+                    (this == SIM_READY) || (this == RUIM_NOT_READY) || 
+                    (this == RUIM_READY) || (this == RUIM_LOCKED_OR_ABSENT) || 
+                    (this == NV_NOT_READY) || (this == NV_READY);
         }
+        // Engle, for MTK, end
 
         public boolean isAvailable() {
             return this != RADIO_UNAVAILABLE;
         }
-    }
+
+        // Engle, for MTK, start
+        public boolean isCdma()
+        {
+            if ((this == RUIM_NOT_READY) || (this == RUIM_READY) || (this == RUIM_LOCKED_OR_ABSENT)
+                    || (this == NV_NOT_READY) || (this == NV_READY)) {
+                return true;
+            }
+            return false;
+        }
+
+        public boolean isGsm()
+        {
+            if ((this != SIM_NOT_READY) && (this != SIM_LOCKED_OR_ABSENT) && (this != SIM_READY)) {
+                return false;
+            }
+            return true;
+        }
+
+        public boolean isNVReady()
+        {
+            return this == NV_READY;
+        }
+
+        public boolean isRUIMReady()
+        {
+            return this == RUIM_READY;
+        }
+
+        public boolean isSIMReady()
+        {
+            return this == SIM_READY;
+        }
+        // Engle, for MTK, end
+      }
 
     //***** Constants
 
