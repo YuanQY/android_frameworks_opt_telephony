@@ -48,7 +48,7 @@ public interface CommandsInterface {
             return (this == SIM_NOT_READY) || (this == SIM_LOCKED_OR_ABSENT) || 
                     (this == SIM_READY) || (this == RUIM_NOT_READY) || 
                     (this == RUIM_READY) || (this == RUIM_LOCKED_OR_ABSENT) || 
-                    (this == NV_NOT_READY) || (this == NV_READY);
+                    (this == NV_NOT_READY) || (this == NV_READY) || (this == RADIO_ON);
         }
         // Engle, for MTK, end
 
