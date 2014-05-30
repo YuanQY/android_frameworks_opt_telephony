@@ -79,10 +79,10 @@ public class Operators{
         } catch (IOException e) {
             Rlog.w("Operatorcheck", "Exception in spn-conf parser " + e);
         } finally {
-        	  try {
+            try {
                 spnReader.close();
             } catch (IOException e) {
-            	 Rlog.w("Should not here", e);
+                Rlog.w("Should not here", e);
             }
         }
         return init;

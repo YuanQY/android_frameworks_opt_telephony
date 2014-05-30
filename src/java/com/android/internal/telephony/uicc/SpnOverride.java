@@ -90,7 +90,7 @@ public class SpnOverride {
             Rlog.w(LOG_TAG, "Exception in spn-conf parser " + e);
         } finally {
         	  if (spnReader != null) {
-        		  try {
+              try {
         		  	  spnReader.close();
         		  } catch (IOException e) {
                   Rlog.w(LOG_TAG, "Exception in spn-conf parser " + e);
