@@ -42,7 +42,7 @@ public class Operators{
         HashMap<String, String> init = new HashMap<String, String>();
         //taken from spnOveride.java
 
-        FileReader spnReader;
+        FileReader spnReader = null;
 
         final File spnFile = new File(Environment.getRootDirectory(),
                                      "etc/selective-spn-conf.xml");
@@ -78,6 +78,12 @@ public class Operators{
             Rlog.w("Operatorcheck", "Exception in spn-conf parser " + e);
         } catch (IOException e) {
             Rlog.w("Operatorcheck", "Exception in spn-conf parser " + e);
+        } finally {
+        	  try {
+                spnReader.close();
+            } catch (IOException e) {
+            	 Rlog.w("Should not here", e);
+            }
         }
         return init;
     }

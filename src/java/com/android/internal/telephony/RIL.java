@@ -653,8 +653,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
         mSetPreferredNetworkType = preferredNetworkType;
         mPhoneType = RILConstants.NO_PHONE;
         mInstanceId = instanceId;
-        // Engle, add for change mInstanceId
-        initializeInstanceId();
+ 
+        if (null == mInstanceId)
+        	initializeInstanceId();
+
         PowerManager pm = (PowerManager)context.getSystemService(Context.POWER_SERVICE);
         mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, RILJ_LOG_TAG);
         mWakeLock.setReferenceCounted(false);
